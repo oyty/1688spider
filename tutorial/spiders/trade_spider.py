@@ -51,7 +51,7 @@ class TradeSpider(scrapy.Spider):
             price = re.search('priceRanges\":\[{\"price\":\"(.+?)\"', response.text).group(1)
             product_no = re.search('{\"name\":\"货号\",\"value\":\"(.+?)\"', response.text).group(1)
         except Exception:
-            error_logger.log(response.url)
+            logger.debug(response.url)
             return
 
         if url.startswith("//"):
@@ -74,7 +74,7 @@ class TradeSpider(scrapy.Spider):
             weight = re.search('【克重】：(.+?)<', response.text).group(1).replace(',', '')
             texture = re.search('【材质】：(.+?)<', response.text).group(1).replace(',', '')
         except Exception:
-            error_logger.debug(response.meta['url'])
+            logger.debug(response.meta['url'])
             return
         title = response.meta['title']
         price = response.meta['price']
